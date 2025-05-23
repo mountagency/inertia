@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :todos, only: %i[index create update destroy] do
     patch :toggle, on: :member
+    delete :destroy_completed, on: :collection
   end
   get 'dashboard', to: 'dashboard#index'
   root 'dashboard#index'

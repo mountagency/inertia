@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Card } from '@/components/ui/card';
-import { Trash } from 'lucide-react';
+import { Trash, X } from 'lucide-react';
 
 interface Todo {
   id: number;
@@ -46,6 +46,14 @@ export default function Dashboard({ todos }: Props) {
     });
   };
 
+  const removeCompleted = () => {
+    router.visit('/todos/destroy_completed', {
+      method: 'delete',
+      preserveScroll: true,
+      preserveState: true,
+    });
+  };
+
   return (
     <>
       <Head title="Todo Dashboard" />
@@ -67,10 +75,26 @@ export default function Dashboard({ todos }: Props) {
         </div>
 
         <div className="space-y-2 max-w-md mx-auto">
+          {todos.length > 0 && (
+            <div className="my-4 flex justify-between">
+              <p className="text-sm text-gray-500 h-8 px-3 flex items-center">
+                {todos.filter((todo) => !todo.completed).length} items left
+              </p>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={removeCompleted}
+                disabled={todos.filter((todo) => todo.completed).length === 0}
+              >
+                <X className="w-4 h-4" />
+                Clear Completed
+              </Button>
+            </div>
+          )}
           {todos.map((todo) => (
             <Card
               key={todo.id}
-              className="flex flex-row items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer"
+              className="flex flex-row items-center justify-between p-2 bg-background rounded-lg cursor-pointer"
               onClick={(e) => {
                 if (!(e.target as HTMLElement).closest('button')) {
                   toggle(todo.id);

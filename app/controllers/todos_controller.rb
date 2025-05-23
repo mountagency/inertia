@@ -22,6 +22,11 @@ class TodosController < ApplicationController
     redirect_to todos_path, inertia: { replace: true }
   end
 
+  def destroy_completed
+    Todo.where(completed: true).destroy_all
+    redirect_to todos_path, inertia: { replace: true }
+  end
+
   def toggle
     @todo.update!(completed: !@todo.completed)
     redirect_to todos_path, inertia: { replace: true }
