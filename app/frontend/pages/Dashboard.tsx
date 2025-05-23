@@ -70,7 +70,12 @@ export default function Dashboard({ todos }: Props) {
           {todos.map((todo) => (
             <Card
               key={todo.id}
-              className="flex flex-row items-center justify-between p-3 bg-gray-50 rounded-lg"
+              className="flex flex-row items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer"
+              onClick={(e) => {
+                if (!(e.target as HTMLElement).closest('button')) {
+                  toggle(todo.id);
+                }
+              }}
             >
               <div className="flex items-center gap-2 pl-2">
                 <Checkbox
@@ -87,7 +92,10 @@ export default function Dashboard({ todos }: Props) {
               <Button
                 variant="ghost"
                 size="icon"
-                onClick={() => remove(todo.id)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  remove(todo.id);
+                }}
               >
                 <Trash className="w-4 h-4" />
               </Button>
