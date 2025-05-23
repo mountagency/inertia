@@ -33,8 +33,8 @@ A modern web application built with Ruby on Rails 8, Inertia.js, and React, feat
 1. Clone the repository:
 
 ```bash
-git clone <your-repo-url>
-cd <your-app-name>
+git clone https://github.com/mountagency/inertia
+cd inertia
 ```
 
 2. Install Ruby dependencies:
