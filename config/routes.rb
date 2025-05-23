@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :todos, only: %i[index create update destroy] do
+  resources :todos do
     patch :toggle, on: :member
     delete :destroy_completed, on: :collection
   end
